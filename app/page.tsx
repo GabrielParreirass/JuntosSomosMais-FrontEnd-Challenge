@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Header from "./components/Header";
-import axios from "axios";
+import Pagination from "./components/Pagination";
 
 async function getData() {
   const res = await fetch(
@@ -27,6 +27,10 @@ function capitalizePhrase(str: string) {
 
 export default async function Home() {
   const data = await getData();
+
+  
+
+  let paginationNumber = 0;
 
   return (
     <div>
@@ -78,44 +82,11 @@ export default async function Home() {
             <p className="text-sm">Home &gt; Usuarios &gt; Detalhes</p>
           </div>
           <div>
-            <div className="mt-5">Exibindo 9 de {data.results.length}</div>
-            {/* {data.results.map((i: any) => (
-              <div>{i.name.first}</div>
-            ))} */}
-
-            <div className="grid grid-cols-3 grid-rows-3 gap-5 place-items-center mt-5">
-              {data.results.slice(0, 9).map((user: any) => (
-                <div className="border border-gray-300 rounded flex flex-col items-center justify-center  w-3/4">
-                  <Image
-                    src={user.picture.large}
-                    height={100}
-                    width={100}
-                    alt="foto"
-                    className="rounded-full mt-12"
-                  ></Image>
-                  <div className="font-bold text-lg mb-5 mt-1">
-                    {user.name.first.charAt(0).toUpperCase() +
-                      user.name.first.slice(1)}{" "}
-                    {user.name.last.charAt(0).toUpperCase() +
-                      user.name.last.slice(1)}
-                  </div>
-                  <div className="mb-5 text-md">
-                    {capitalizePhrase(user.location.street)}
-                  </div>
-                  <div className="text-sm">
-                    {capitalizePhrase(user.location.city)}
-                  </div>
-                  <div className="text-sm mb-12">
-                    {user.location.state.charAt(0).toUpperCase() +
-                      user.location.state.slice(1)}{" "}
-                    - CEP: {user.location.postcode}{" "}
-                  </div>
-                </div>
-              ))}
-            </div>
+            <Pagination data={data}></Pagination>
           </div>
         </div>
       </main>
+      
     </div>
   );
 }
