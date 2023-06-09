@@ -32,10 +32,10 @@ export default async function Home() {
 
   return (
     <div>
-      <Header></Header>
-      <main className=" p-10 w-10/12 m-auto flex gap-5">
+      
+   
         <Pagination data={data}></Pagination>
-      </main>
+      
     </div>
   );
 }
